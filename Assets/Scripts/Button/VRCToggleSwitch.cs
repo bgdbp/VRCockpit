@@ -15,7 +15,7 @@ public class VRCToggleSwitch : VRCButton
 
     string displayName;
 
-    public override void Click(InputManager.InputRaycastResult clickInfo)
+    public void Interact()
     {
         ToggleState = !ToggleState;
 
