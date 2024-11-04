@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VRCLightsController : MonoBehaviour
 {
-    public VRCToggleSwitch ToggleSwitch;
+    public VRCToggle ToggleSwitch;
     public VRCKnob IntensityKnob;
     public Light TargetLight;
 

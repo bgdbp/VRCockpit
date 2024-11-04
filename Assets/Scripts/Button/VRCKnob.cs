@@ -6,26 +6,31 @@ using Unity.VRTemplate;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class VRCKnob : VRCButton
+public class VRCKnob : VRCControl
 {
     public XRKnob Knob;
     public Action<float> OnValueChanged;
 
-    public void Twist()
+    public async void Twist()
     {
+        if (VRCSocketClient.Instance == null)
+            return;
+
+        RequestVRCKnob rKnob = new (ControlID, Knob.value);
+
+        await VRCSocketClient.Instance.SendRequest(rKnob);
+
         OnValueChanged?.Invoke(Knob.value);
         refreshKnob();
     }
 
     private void refreshKnob()
     {
-        DisplayText.text = $"{ButtonID}: {Knob.value:0.00}";
+        DisplayText.text = $"{ControlID}: {Knob.value:0.00}";
     }
 
     public override void Start()
     {
-        base.Start();
-
         refreshKnob();
     }
 }

@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -596,6 +597,14 @@ PrefabInstance:
       propertyPath: ButtonID
       value: Ejector_Seat
       objectReference: {fileID: 0}
+    - target: {fileID: 339005947085775754, guid: 0d71265946096b140ae8209b07684910, type: 3}
+      propertyPath: ControlID
+      value: Eject!
+      objectReference: {fileID: 0}
+    - target: {fileID: 339005947085775754, guid: 0d71265946096b140ae8209b07684910, type: 3}
+      propertyPath: DisplayText
+      value: 
+      objectReference: {fileID: 1073136805}
     - target: {fileID: 2053343470993372273, guid: 0d71265946096b140ae8209b07684910, type: 3}
       propertyPath: m_Name
       value: Button
@@ -794,6 +803,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+--- !u!114 &479691778 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1823468084781523749, guid: 17e6e34259a2cac4baa82ca25aae3ab8, type: 3}
+  m_PrefabInstance: {fileID: 984358369}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!143 &492010637 stripped
 CharacterController:
   m_CorrespondingSourceObject: {fileID: 6232745470614056090, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
@@ -1027,6 +1047,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &923762930
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 923762932}
+  - component: {fileID: 923762931}
+  m_Layer: 0
+  m_Name: SocketClient
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &923762931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923762930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d541a5d25c0e8fc41a0bbfb7b64849e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &923762932
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923762930}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &984358369
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1128,9 +1192,17 @@ PrefabInstance:
       value: Cabin_Lights
       objectReference: {fileID: 0}
     - target: {fileID: 1264751791244028682, guid: 17e6e34259a2cac4baa82ca25aae3ab8, type: 3}
+      propertyPath: ControlID
+      value: Lights
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264751791244028682, guid: 17e6e34259a2cac4baa82ca25aae3ab8, type: 3}
       propertyPath: DisplayName
       value: Lights
       objectReference: {fileID: 0}
+    - target: {fileID: 1264751791244028682, guid: 17e6e34259a2cac4baa82ca25aae3ab8, type: 3}
+      propertyPath: DisplayText
+      value: 
+      objectReference: {fileID: 479691778}
     - target: {fileID: 1823468084781523749, guid: 17e6e34259a2cac4baa82ca25aae3ab8, type: 3}
       propertyPath: m_text
       value: Lights
@@ -1204,6 +1276,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 942293933341833035, guid: 17e6e34259a2cac4baa82ca25aae3ab8, type: 3}
   m_PrefabInstance: {fileID: 984358369}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1073136805 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8040723611768276772, guid: 0d71265946096b140ae8209b07684910, type: 3}
+  m_PrefabInstance: {fileID: 429912019}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1249617917
 GameObject:
   m_ObjectHideFlags: 0
@@ -2273,7 +2356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisplayText: {fileID: 648288201431382591}
-  ButtonID: Intensity
+  ControlID: Intensity
   Knob: {fileID: 184476799}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -2285,3 +2368,4 @@ SceneRoots:
   - {fileID: 2092139010}
   - {fileID: 1249617921}
   - {fileID: 708518179}
+  - {fileID: 923762932}

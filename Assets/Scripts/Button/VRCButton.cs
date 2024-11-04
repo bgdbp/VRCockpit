@@ -5,21 +5,23 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
-public class VRCButton : MonoBehaviour
+public class VRCButton : VRCControl
 {
-    public TextMeshPro DisplayText;
-    public string ButtonID;
-
     public Action OnPress;
 
-    public void Press()
+    public async void Press()
     {
-        Debug.Log($"ButtonID {ButtonID} clicked!");
+        Debug.Log($"ButtonID {ControlID} clicked!");
+
+        RequestVRCButton rButton = new (ControlID, isPressed: true);
+        await VRCSocketClient.Instance.SendRequest(rButton);
+
         OnPress?.Invoke();
     }
 
-    public virtual void Start()
+    public override void Start()
     {
+        base.Start();
         refreshHighlight();
     }
 
