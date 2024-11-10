@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VRTemplate;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Unity.VRTemplate;
 
 public class VRCKnob : VRCControl
 {
