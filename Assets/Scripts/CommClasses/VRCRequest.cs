@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 [JsonDerivedType(typeof(RequestVRCControl), typeDiscriminator: 0)]
 [JsonDerivedType(typeof(RequestVRCKnob), typeDiscriminator: 1)]
@@ -6,5 +7,5 @@ using System.Text.Json.Serialization;
 [JsonDerivedType(typeof(RequestVRCButton), typeDiscriminator: 3)]
 public abstract class VRCRequest
 {
-
+    public abstract Task HandleRequest();
 }

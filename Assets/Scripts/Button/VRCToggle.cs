@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-public class VRCToggle : VRCButton
+public class VRCToggle : VRCControl
 {
     public GameObject ToggleUpModel;
     public GameObject ToggleDownModel;
@@ -15,17 +16,42 @@ public class VRCToggle : VRCButton
 
     string displayName;
 
-    public async void Interact()
+    public override async Task SendStateToServer()
     {
-        ToggleState = !ToggleState;
-
-        RequestVRCToggle rToggle = new (ControlID, isOn: ToggleState);
+        RequestVRCToggle rToggle = new (ControlID, isOn: ToggleState, isInitialSend);
         await VRCSocketClient.Instance.SendRequest(rToggle);
+
+        isInitialSend = false;
+    }
+
+    public async Task _setState(bool toggleState, bool sendRequest)
+    {
+        ToggleState = toggleState;
+
+        if (sendRequest)
+        {
+            await SendStateToServer();
+        }
 
         refreshToggleModel();
         OnToggle?.Invoke(ToggleState);
 
         Debug.Log($"Toggle {ControlID} clicked!  Its state is {ToggleState}");
+    }
+
+    public async Task SetState(bool toggleState)
+    {
+        await _setState(toggleState, sendRequest: false);
+    }
+
+    public async Task SetStateAndSync(bool toggleState)
+    {
+        await _setState(toggleState, sendRequest: true);
+    }
+
+    public async void Interact()
+    {
+        await SetStateAndSync(!ToggleState);
     }
 
     // in a more complex setup we could use an animation instead
@@ -43,5 +69,6 @@ public class VRCToggle : VRCButton
     {
         displayName = ToggleText.text;
         refreshToggleModel();
+        base.Start();
     }
 }

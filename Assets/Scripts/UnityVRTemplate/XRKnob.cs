@@ -159,6 +159,12 @@ namespace Unity.VRTemplate
             }
         }
 
+        public void SetValueNoNotify(float value)
+        {
+            SetValue(value, notify: false);
+            SetKnobRotation(ValueToRotation());
+        }
+
         /// <summary>
         /// Whether this knob's rotation should be clamped by the angle limits
         /// </summary>
@@ -355,7 +361,7 @@ namespace Unity.VRTemplate
                 m_Handle.localEulerAngles = new Vector3(0.0f, angle, 0.0f);
         }
 
-        void SetValue(float newValue)
+        void SetValue(float newValue, bool notify = true)
         {
             if (m_ClampedMotion)
                 newValue = Mathf.Clamp01(newValue);
@@ -369,7 +375,9 @@ namespace Unity.VRTemplate
             }
 
             m_Value = newValue;
-            m_OnValueChange.Invoke(m_Value);
+
+            if (notify)
+                m_OnValueChange.Invoke(m_Value);
         }
 
         float ValueToRotation()

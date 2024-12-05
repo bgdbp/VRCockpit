@@ -12,31 +12,96 @@ using System.Collections.Generic;
 public class VRCSocketClient : MonoBehaviour
 {
     public static VRCSocketClient Instance;
-
+    TcpClient client { get; set; }
     IPEndPoint discoveryEndpoint = new (IPAddress.Broadcast, 11000);
     IPEndPoint tcpEndpoint;
-    TcpClient client;
 
     Task connecting;
 
-    private async void OnEnable()
+    public async Task SendRequest(VRCRequest request)
+    {
+        if (this == null)
+            return;
+
+        while (this != null)
+        {
+            try
+            {
+                await WaitForConnection();
+
+                var networkStream = client.GetStream();
+                string message = JsonSerializer.Serialize(request);
+                message += ",";
+
+                byte[] bytes = Encoding.UTF8.GetBytes(message);
+                await networkStream.WriteAsync(bytes, 0, bytes.Length);
+                return;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+            }
+        }
+    }
+
+    private void Start()
+    {
+    }
+
+    private void Awake()
     {
         Instance = this;
+    }
 
 
-        RequestVRCKnob rKnob = new ("TestKnob", 0.123456f);
-        await SendRequest(rKnob);
 
-        RequestVRCToggle rToggle = new ("TestToggle", isOn: false);
-        await SendRequest(rToggle);
+    private async void OnEnable()
+    {
 
-        RequestVRCButton rButton = new ("TestButton", isPressed: true);
-        await SendRequest(rButton);
+        //connect
+        //todo: figure out reconnect
+
+
+        await WaitForConnection();
+
+
+        foreach (VRCControl control in VRCControl.controlMap.Values)
+        {
+            await control.SendStateToServer();
+        }
+
+        await Receive();
     }
 
     private void OnDisable()
     {
         closeConnection();
+    }
+
+    public async Task Receive()
+    {
+        try
+        {
+            var stream = client.GetStream();
+            JsonSerializerOptions options = new JsonSerializerOptions() { AllowTrailingCommas = true };
+            var incomingRequests = JsonSerializer.DeserializeAsyncEnumerable<VRCRequest>(stream, options);
+
+            await foreach (var incomingRequest in incomingRequests)
+            {
+                if (incomingRequest != null)
+                {
+                    await incomingRequest.HandleRequest();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.Write(ex.ToString());
+        }
+        finally
+        {
+            Console.WriteLine($"Connection closed.");
+        }
     }
 
     private async Task discoverAndConnect()
@@ -72,31 +137,6 @@ public class VRCSocketClient : MonoBehaviour
         }
     }
 
-    public async Task SendRequest(VRCRequest request)
-    {
-        if (this == null)
-            return;
-
-        while (this != null)
-        {
-            try
-            {
-                await WaitForConnection();
-
-                var networkStream = client.GetStream();
-                string message = JsonSerializer.Serialize(request);
-                message += ",";
-
-                byte[] bytes = Encoding.UTF8.GetBytes(message);
-                await networkStream.WriteAsync(bytes, 0, bytes.Length);
-                return;
-            }
-            catch (Exception ex)
-            {
-                Debug.LogException(ex);
-            }
-        }
-    }
 
     async Task discoverServer()
     {
