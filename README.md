@@ -1,7 +1,7 @@
 **VR Cockpit Client v1.0.0**
 
 This is the client side of our VR Cockpit project, it is responsible for displaying
-the virtual cockpit in 'Mixed Reality', as well as sending and receiveing control states to and from the VR Cockpit Server.
+the virtual cockpit in 'Mixed Reality', as well as sending and receiving control states to and from the VR Cockpit Server.
 This repository contains a Unity 6 Project and was tested and demonstrated using a Meta Quest 3 VR Headset, 
 all though other headsets may work if it has hand tracking and camera passthrough capabilities. 
 
