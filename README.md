@@ -8,13 +8,13 @@ all though other headsets may work if it has hand tracking and camera passthroug
 The VR Cockpit Server is built to a Raspberry Pi 5 and Arduino Uno R3, its repository
 is located here: https://github.com/bgdbp/VRCockpitServer
 
-**Sofware required to build this project:**
+**Software required to build this project:**
 
   Unity Engine 6000.0.23f1
 
 **Hardware used (but not necessarily required to run and test the project)**
 
-  Meta Quest 3 Virual Reality 
+  Meta Quest 3 Virtual Reality Headset
 
 **Unity Installation Instructions:**
 
